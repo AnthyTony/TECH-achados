@@ -1,0 +1,968 @@
+​<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tech Achados | Ofertas de Tecnologia</title>
+
+    <meta
+        name="description"
+        content="Os melhores achados de tecnologia, gadgets e acessórios com preços especiais."
+    >
+
+    <style>
+        /* =========================================
+           RESET
+        ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #090909;
+            color: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            display: block;
+            width: 100%;
+        }
+
+        /* =========================================
+           VARIÁVEIS
+        ========================================= */
+
+        :root {
+            --bg: #090909;
+            --card: #141414;
+            --card-hover: #1b1b1b;
+            --border: #292929;
+            --text: #f5f5f5;
+            --muted: #999;
+            --orange: #ff6b00;
+            --orange-hover: #ff8126;
+            --green: #b6ff00;
+        }
+
+        /* =========================================
+           HEADER
+        ========================================= */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+
+            background: rgba(9, 9, 9, 0.92);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(12px);
+        }
+
+        .header-container {
+            width: min(1180px, 92%);
+            margin: 0 auto;
+
+            min-height: 72px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 1.45rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--orange);
+        }
+
+        .header-badge {
+            color: var(--green);
+            font-size: 0.8rem;
+            font-weight: 700;
+            border: 1px solid rgba(182, 255, 0, 0.3);
+            padding: 6px 12px;
+            border-radius: 999px;
+        }
+
+        /* =========================================
+           HERO
+        ========================================= */
+
+        .hero {
+            width: min(1180px, 92%);
+            margin: 0 auto;
+
+            padding: 80px 0 55px;
+            text-align: center;
+        }
+
+        .hero-tag {
+            display: inline-block;
+
+            color: var(--green);
+            background: rgba(182, 255, 0, 0.08);
+            border: 1px solid rgba(182, 255, 0, 0.2);
+
+            padding: 7px 14px;
+            border-radius: 999px;
+
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            max-width: 800px;
+            margin: 0 auto 18px;
+
+            font-size: clamp(2.3rem, 6vw, 4.5rem);
+            line-height: 1.05;
+            letter-spacing: -2px;
+        }
+
+        .hero h1 span {
+            color: var(--orange);
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: 0 auto;
+
+            color: var(--muted);
+            font-size: 1.05rem;
+        }
+
+        /* =========================================
+           PRODUTOS
+        ========================================= */
+
+        .products-section {
+            width: min(1180px, 92%);
+            margin: 0 auto;
+
+            padding-bottom: 80px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .section-header h2 {
+            font-size: 1.6rem;
+        }
+
+        .section-header p {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .products-grid {
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 20px;
+        }
+
+        /* =========================================
+           CARD
+        ========================================= */
+
+        .product-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            display: flex;
+            flex-direction: column;
+
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                background 0.25s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            background: var(--card-hover);
+            border-color: #3a3a3a;
+        }
+
+        .product-image {
+            position: relative;
+            aspect-ratio: 1 / 1;
+
+            background: #202020;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.04);
+        }
+
+        .discount {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+
+            background: var(--green);
+            color: #101010;
+
+            font-size: 0.75rem;
+            font-weight: 900;
+
+            padding: 5px 9px;
+            border-radius: 7px;
+        }
+
+        .product-content {
+            padding: 18px;
+
+            display: flex;
+            flex-direction: column;
+
+            flex: 1;
+        }
+
+        .product-category {
+            color: var(--muted);
+            text-transform: uppercase;
+
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+
+            margin-bottom: 7px;
+        }
+
+        .product-name {
+            font-size: 1rem;
+            line-height: 1.35;
+
+            min-height: 44px;
+
+            margin-bottom: 15px;
+        }
+
+        .price-label {
+            color: var(--muted);
+            font-size: 0.75rem;
+        }
+
+        .price {
+            color: var(--orange);
+
+            font-size: 1.55rem;
+            font-weight: 900;
+
+            line-height: 1.2;
+
+            margin-bottom: 17px;
+        }
+
+        .buy-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 100%;
+
+            background: var(--orange);
+            color: #fff;
+
+            padding: 12px 15px;
+            border-radius: 10px;
+
+            font-size: 0.9rem;
+            font-weight: 800;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .buy-button:hover {
+            background: var(--orange-hover);
+            transform: translateY(-1px);
+        }
+
+        .buy-button::after {
+            content: "→";
+            margin-left: 8px;
+            font-size: 1rem;
+        }
+
+        /* =========================================
+           AVISO AFILIADO
+        ========================================= */
+
+        .affiliate-notice {
+            width: min(900px, 92%);
+            margin: 0 auto 70px;
+
+            padding: 20px;
+
+            background: #101010;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+
+            text-align: center;
+
+            color: #777;
+            font-size: 0.78rem;
+        }
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        footer {
+            border-top: 1px solid var(--border);
+            background: #060606;
+
+            padding: 30px 0;
+        }
+
+        .footer-container {
+            width: min(1180px, 92%);
+            margin: 0 auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+        .footer-logo {
+            font-weight: 800;
+        }
+
+        .footer-logo span {
+            color: var(--orange);
+        }
+
+        .footer-text {
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        /* =========================================
+           RESPONSIVIDADE
+        ========================================= */
+
+        @media (max-width: 1000px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 750px) {
+            .hero {
+                padding-top: 60px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 14px;
+            }
+
+            .product-content {
+                padding: 14px;
+            }
+
+            .product-name {
+                font-size: 0.92rem;
+            }
+
+            .price {
+                font-size: 1.35rem;
+            }
+
+            .header-badge {
+                display: none;
+            }
+
+            .section-header {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 4px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                letter-spacing: -1px;
+            }
+
+            .hero p {
+                font-size: 0.95rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .product-image {
+                aspect-ratio: 0.95 / 1;
+            }
+
+            .product-category {
+                font-size: 0.6rem;
+            }
+
+            .product-name {
+                min-height: 58px;
+            }
+
+            .buy-button {
+                font-size: 0.78rem;
+                padding: 11px 8px;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================================
+         CABEÇALHO
+    ========================================== -->
+
+    <header>
+        <div class="header-container">
+
+            <a href="#" class="logo">
+                Tech <span>Achados</span>
+            </a>
+
+            <div class="header-badge">
+                ⚡ Ofertas selecionadas
+            </div>
+
+        </div>
+    </header>
+
+
+    <!-- =========================================
+         HERO
+    ========================================== -->
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-tag">
+                🔥 ACHADOS DO DIA
+            </div>
+
+            <h1>
+                Tecnologia boa,
+                <span>preço melhor ainda.</span>
+            </h1>
+
+            <p>
+                Selecionamos gadgets, acessórios e produtos de tecnologia
+                que valem a pena. Confira os achados e aproveite as ofertas.
+            </p>
+
+        </section>
+
+
+        <!-- =========================================
+             PRODUTOS
+        ========================================== -->
+
+        <section class="products-section">
+
+            <div class="section-header">
+                <div>
+                    <h2>🔥 Achados Tech</h2>
+                    <p>Produtos selecionados para você.</p>
+                </div>
+            </div>
+
+
+            <div class="products-grid">
+
+
+                <!-- PRODUTO 1 -->
+
+                <article class="product-card">
+
+                    <div class="product-image">
+
+                        <span class="discount">
+                            -35%
+                        </span>
+
+                        <img
+                            src="https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=800&q=80"
+                            alt="Fones de ouvido sem fio"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <div class="product-content">
+
+                        <div class="product-category">
+                            Áudio
+                        </div>
+
+                        <h3 class="product-name">
+                            Fone Bluetooth TWS com cancelamento de ruído
+                        </h3>
+
+                        <span class="price-label">
+                            A partir de
+                        </span>
+
+                        <div class="price">
+                            R$ 79,90
+                        </div>
+
+                        <a
+                            href="https://shopee.com.br/"
+                            target="_blank"
+                            rel="noopener noreferrer nofollow"
+                            class="buy-button"
+                        >
+                            Ver na Shopee
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- PRODUTO 2 -->
+
+                <article class="product-card">
+
+                    <div class="product-image">
+
+                        <span class="discount">
+                            -28%
+                        </span>
+
+                        <img
+                            src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=800&q=80"
+                            alt="Teclado mecânico gamer"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <div class="product-content">
+
+                        <div class="product-category">
+                            PC Gamer
+                        </div>
+
+                        <h3 class="product-name">
+                            Teclado mecânico RGB compacto
+                        </h3>
+
+                        <span class="price-label">
+                            A partir de
+                        </span>
+
+                        <div class="price">
+                            R$ 129,90
+                        </div>
+
+                        <a
+                            href="https://shopee.com.br/"
+                            target="_blank"
+                            rel="noopener noreferrer nofollow"
+                            class="buy-button"
+                        >
+                            Ver na Shopee
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- PRODUTO 3 -->
+
+                <article class="product-card">
+
+                    <div class="product-image">
+
+                        <span class="discount">
+                            -42%
+                        </span>
+
+                        <img
+                            src="https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=800&q=80"
+                            alt="Caixa de som Bluetooth"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <div class="product-content">
+
+                        <div class="product-category">
+                            Som
+                        </div>
+
+                        <h3 class="product-name">
+                            Caixa de som Bluetooth portátil
+                        </h3>
+
+                        <span class="price-label">
+                            A partir de
+                        </span>
+
+                        <div class="price">
+                            R$ 99,90
+                        </div>
+
+                        <a
+                            href="https://shopee.com.br/"
+                            target="_blank"
+                            rel="noopener noreferrer nofollow"
+                            class="buy-button"
+                        >
+                            Ver na Shopee
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- PRODUTO 4 -->
+
+                <article class="product-card">
+
+                    <div class="product-image">
+
+                        <span class="discount">
+                            -31%
+                        </span>
+
+                        <img
+                            src="https://images.unsplash.com/photo-1587033411391-5d9e51cce126?auto=format&fit=crop&w=800&q=80"
+                            alt="Smartwatch"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <div class="product-content">
+
+                        <div class="product-category">
+                            Wearables
+                        </div>
+
+                        <h3 class="product-name">
+                            Smartwatch com monitoramento de atividades
+                        </h3>
+
+                        <span class="price-label">
+                            A partir de
+                        </span>
+
+                        <div class="price">
+                            R$ 149,90
+                        </div>
+
+                        <a
+                            href="https://shopee.com.br/"
+                            target="_blank"
+                            rel="noopener noreferrer nofollow"
+                            class="buy-button"
+                        >
+                            Ver na Shopee
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- PRODUTO 5 -->
+
+                <article class="product-card">
+
+                    <div class="product-image">
+
+                        <span class="discount">
+                            -25%
+                        </span>
+
+                        <img
+                            src="https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?auto=format&fit=crop&w=800&q=80"
+                            alt="Mouse gamer"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <div class="product-content">
+
+                        <div class="product-category">
+                            Periféricos
+                        </div>
+
+                        <h3 class="product-name">
+                            Mouse gamer RGB de alta precisão
+                        </h3>
+
+                        <span class="price-label">
+                            A partir de
+                        </span>
+
+                        <div class="price">
+                            R$ 69,90
+                        </div>
+
+                        <a
+                            href="https://shopee.com.br/"
+                            target="_blank"
+                            rel="noopener noreferrer nofollow"
+                            class="buy-button"
+                        >
+                            Ver na Shopee
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- PRODUTO 6 -->
+
+                <article class="product-card">
+
+                    <div class="product-image">
+
+                        <span class="discount">
+                            -38%
+                        </span>
+
+                        <img
+                            src="https://images.unsplash.com/photo-1609592424881-5f5a4f7d8e55?auto=format&fit=crop&w=800&q=80"
+                            alt="Carregador rápido"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <div class="product-content">
+
+                        <div class="product-category">
+                            Acessórios
+                        </div>
+
+                        <h3 class="product-name">
+                            Carregador USB-C rápido 65W
+                        </h3>
+
+                        <span class="price-label">
+                            A partir de
+                        </span>
+
+                        <div class="price">
+                            R$ 89,90
+                        </div>
+
+                        <a
+                            href="https://shopee.com.br/"
+                            target="_blank"
+                            rel="noopener noreferrer nofollow"
+                            class="buy-button"
+                        >
+                            Ver na Shopee
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- PRODUTO 7 -->
+
+                <article class="product-card">
+
+                    <div class="product-image">
+
+                        <span class="discount">
+                            -30%
+                        </span>
+
+                        <img
+                            src="https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?auto=format&fit=crop&w=800&q=80"
+                            alt="Headset gamer"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <div class="product-content">
+
+                        <div class="product-category">
+                            Gaming
+                        </div>
+
+                        <h3 class="product-name">
+                            Headset gamer com microfone
+                        </h3>
+
+                        <span class="price-label">
+                            A partir de
+                        </span>
+
+                        <div class="price">
+                            R$ 119,90
+                        </div>
+
+                        <a
+                            href="https://shopee.com.br/"
+                            target="_blank"
+                            rel="noopener noreferrer nofollow"
+                            class="buy-button"
+                        >
+                            Ver na Shopee
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- PRODUTO 8 -->
+
+                <article class="product-card">
+
+                    <div class="product-image">
+
+                        <span class="discount">
+                            -40%
+                        </span>
+
+                        <img
+                            src="https://images.unsplash.com/photo-1555617981-dac3880eac6e?auto=format&fit=crop&w=800&q=80"
+                            alt="Hub USB"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <div class="product-content">
+
+                        <div class="product-category">
+                            USB
+                        </div>
+
+                        <h3 class="product-name">
+                            Hub USB-C com múltiplas portas
+                        </h3>
+
+                        <span class="price-label">
+                            A partir de
+                        </span>
+
+                        <div class="price">
+                            R$ 59,90
+                        </div>
+
+                        <a
+                            href="https://shopee.com.br/"
+                            target="_blank"
+                            rel="noopener noreferrer nofollow"
+                            class="buy-button"
+                        >
+                            Ver na Shopee
+                        </a>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             AVISO DE AFILIADO
+        ========================================== -->
+
+        <div class="affiliate-notice">
+            <strong>Transparência:</strong>
+            alguns links desta página são links de afiliado.
+            Podemos receber uma comissão caso você realize uma compra
+            através deles, sem custo adicional para você.
+        </div>
+
+    </main>
+
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+
+    <footer>
+
+        <div class="footer-container">
+
+            <div class="footer-logo">
+                Tech <span>Achados</span>
+            </div>
+
+            <div class="footer-text">
+                © 2026 Tech Achados. Todos os direitos reservados.
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
+</html>
